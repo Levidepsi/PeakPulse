@@ -1,0 +1,238 @@
+/* ===== HERO BASE ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.hero.screen {
+  min-height: 100vh;
+}
+
+.hero.large {
+  min-height: 80vh;
+}
+
+.hero.medium {
+  min-height: 70vh;
+}
+
+.hero.small {
+  min-height: 50vh;
+}
+
+.hero:not(.no-bg) {
+  background: linear-gradient(135deg, hsl(230 60% 8%) 0%, hsl(210 29% 24%) 50%, hsl(230 60% 8%) 100%)
+}
+
+/* ===== GRID BACKGROUND ===== */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 40s linear infinite;
+}
+
+/* ===== BLOBS ===== */
+.hero-blob {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.hero-blob-primary {
+  background: #f3727233;
+  top: 20%;
+  left: 20%;
+}
+
+.hero-blob-secondary {
+  background: #57d1c733;
+  bottom: 20%;
+  right: 20%;
+  animation-delay: 4s;
+}
+
+/* ===== CONTENT ===== */
+.hero-container {
+  position: relative;
+  z-index: 2;
+  padding: 8rem 1.5rem;
+  max-width: 1200px;
+}
+
+.hero-title,
+.hero-title code {
+  /* font-display (adjust to your actual display font) */
+    font-family: var(--font-syne), system-ui, sans-serif;
+    font-weight: 800;
+    /* text-5xl */
+    font-size: 3rem;
+  
+    /* text-white */
+    color: #ffffff;
+  
+    /* leading-[1.05] */
+    line-height: 1;
+  
+    /* mb-8 */
+    margin-bottom: 2rem;
+  
+    /* animation */
+    animation: fadeUp 0.6s ease-out both;
+    letter-spacing: 1.2px;
+}
+
+.hero-title code {
+  background: linear-gradient(90deg,
+        #f87171,  
+        /* purple */
+        #57d1c7
+        /* teal */
+      );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-title strong,
+.hero-title span {
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== BUTTONS ===== */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.btn {
+  height: 56px;
+  padding: 0 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #fff;
+  color: #1a1a2e;
+  border: 2px solid #fff;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.btn-secondary:hover {
+  background: #fff;
+  color: #111;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
+}
+
+
+
+@media (width >= 640px) {
+  .hero-title,
+  .hero-title code {
+    font-size: 3.75rem;
+  }
+}
+
+@media (width >=1024px) {
+  .hero-title,
+  .hero-title code {
+    font-size: 4.5rem;
+  }
+  .hero-actions {
+    flex-direction: row;
+  }
+}
+
+@media (width >=1280px) {
+  .hero-title,
+  .hero-title code {
+    font-size: 5.3rem;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 600px 600px;
+  }
+}
+
+@keyframes pulse {
+
+  0%
+   {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.fade-up.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.fade-up.delay-2 {
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

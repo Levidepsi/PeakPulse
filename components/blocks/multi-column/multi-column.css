@@ -1,0 +1,139 @@
+.multi-column {
+  padding: 6rem 0;
+}
+
+@media (min-width: 1024px) {
+  .multi-column {
+    padding: 8rem 0;
+  }
+}
+
+.multi-column__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.multi-column__title {
+  font-family: Syne, system-ui, sans-serif;
+    font-size: 2.25rem;
+      line-height: 2.5rem;
+  margin-bottom: 1rem;
+  color: #2b3d4f;
+  font-weight: 800;
+}
+
+.multi-column__description {
+  max-width: 640px;
+  margin: 0 auto;
+  color: #627384;
+      font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.multi-column__grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .multi-column__grid {
+    grid-template-columns: repeat(2, 1fr);
+    
+  }
+    .multi-column__title {
+      font-size: 3rem;
+      line-height: 1;
+    }
+}
+
+@media (min-width: 1024px) {
+  .multi-column__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .multi-column__title {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+.multi-column__card {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.multi-column__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px hsl(210 29% 24% / .12)
+}
+
+.multi-column__accent {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  border-radius: 20px;
+}
+
+.multi-column__card:hover .multi-column__accent {
+  transform: scaleX(1);
+}
+
+.multi-column__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.multi-column__card:hover .multi-column__icon {
+  transform: scale(1.1);
+}
+
+.multi-column__card-title {
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.multi-column__card-description {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+.multi-column__link {
+  background: none;
+  border: none;
+  color: #57d1c7;
+  font-weight: 600;
+  display: inline-flex;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: gap 0.3s ease;
+  position: absolute;
+  bottom: 20px;
+}
+
+.multi-column__link span {
+  transition: transform 0.3s ease;
+}
+
+.multi-column__link:hover {
+  gap: 1rem;
+}
+
+.multi-column__link:hover span {
+  transform: translateX(4px);
+}

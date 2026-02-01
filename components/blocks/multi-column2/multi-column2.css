@@ -1,0 +1,145 @@
+.multi-column-2 {
+  padding: 0px 0 0;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-title {
+    font-size: 1.875rem;
+      line-height: 2.25rem;
+  text-align: center;
+  margin-bottom: 70px;
+  font-weight: 800;
+  color: #1f2937;
+      font-family: Syne, system-ui, sans-serif;
+}
+
+/* Grid */
+.cards-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Card */
+.card {
+  position: relative;
+  padding: 24px;
+  border-radius: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  transform: scale(1.05);
+    background: linear-gradient(to bottom right, #f372720d, #57d1c70d);
+  transition: all 0.5s ease;
+  overflow: hidden;
+    min-height: 220px;
+}
+
+/* Top accent bar */
+.card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+
+  background: linear-gradient(to right, #f37272, #57d1c7);
+
+  background-size: 0% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: background-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover */
+.card:hover {
+  border-color: #57d1c7;
+  transform: translateY(-10px) scale(1.05);
+}
+
+.card:hover .card-accent {
+  background-size: 100% 100%;
+}
+/* Featured card */
+.card-featured {
+  border-color: #f37272;
+  transform: translateY(-10px) scale(1.05);
+  background: linear-gradient(to bottom right, #f372720d, #57d1c70d);
+}
+
+/* Text */
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.card-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+/* Badge */
+.card-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(to right, #f37272,
+    #57d1c7);
+    position: absolute;
+    bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+}
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-featured {
+    transform: none;
+  }
+}
+
+@media (width >= 768px) {
+    .section-title {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+}
+
+@media (width >=1024px) {
+  .section-title {
+        font-size: 3rem;
+          line-height: 1;
+  }
+        .multi-column-2 {
+          padding: 80px 0;
+        }
+}
