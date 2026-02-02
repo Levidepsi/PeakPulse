@@ -49,6 +49,15 @@ const Header = ({ navigation }: { navigation: HeaderValues }) => {
     });
   };
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   
   
   if (pathname.includes("/admin")) {
@@ -56,7 +65,7 @@ const Header = ({ navigation }: { navigation: HeaderValues }) => {
   }
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${menuOpen ? "menu-openned" :  ""}`}>
       <nav className="nav container">
         {/* Logo */}
         <Link href="/" className="logo">
@@ -65,8 +74,9 @@ const Header = ({ navigation }: { navigation: HeaderValues }) => {
               src={navigation.header_logo}
               alt={navigation.title || "Logo"}
               width={140}
-              height={40}
+              height={140}
               priority
+              className="w-[200px] w-[250px] h-auto"
             />
           ) : (
             navigation.title
@@ -125,8 +135,68 @@ const Header = ({ navigation }: { navigation: HeaderValues }) => {
         </ul>
 
         {/* CTA (optional) */}
-        <button className="cta-button">Book Call</button>
+        <button onClick={() => handleScroll("contact")} className="cta-button">Book Call</button>
+        <button
+          className="menu-button"
+          aria-label="Open menu"
+          onClick={() => setMenuOpen(true)}
+        >
+          ☰
+        </button>
       </nav>
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+          <button
+            className="mobile-close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+
+          <ul className="mobile-nav">
+            {navigation.header_menu?.map((item, index) => {
+              if (item.linkId) {
+                return (
+                  <li key={index}>
+                    <button
+                      onClick={() => {
+                        handleScroll(item.linkId);
+                        setMenuOpen(false);
+                      }}
+                    >
+                      {item.title}
+                    </button>
+                  </li>
+                );
+              }
+
+              if (item.page?.slug?.slug) {
+                return (
+                  <li key={index}>
+                    <Link
+                      href={`/${item.page.slug.slug}`}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              }
+
+              return null;
+            })}
+          </ul>
+
+          <button
+            className="mobile-cta"
+            onClick={() => {
+              handleScroll("contact");
+              setMenuOpen(false);
+            }}
+          >
+            Book Call
+          </button>
+        </div>
     </header>
   );
 };

@@ -12,8 +12,8 @@
 }
 
 /* Optional when scrolling */
-.site-header.scrolled {
-  background: rgba(15, 23, 42, 0.85);
+.site-header.active {
+  background: #fff;
   backdrop-filter: blur(12px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
@@ -49,6 +49,10 @@
   transition: transform 0.3s ease;
 }
 
+.site-header.active .logo {
+  color: #f37272;
+}
+
 .logo:hover {
   transform: translateY(-2px);
 }
@@ -77,6 +81,10 @@
   transition: color 0.25s ease;
 }
 
+.site-header.active .nav-link {
+  color: #2b3d4fcc;
+}
+
 .nav-link:hover {
   color: #ffffff;
 }
@@ -101,9 +109,13 @@
   transition: all 0.3s ease;
 }
 
+.site-header.active .cta-button {
+  background-color: #f37272;
+}
+
 .cta-button:hover {
-  background: #ffffff;
-  color: #0f172a;
+  background: #f37272;
+  color: #fff;
   transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
 }
@@ -111,18 +123,102 @@
 /* ===============================
    Mobile Menu Button
 ================================ */
-.menu-button {
-  display: block;
-  padding: 0.5rem;
-  background: none;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #2f4153 0%, #243544 100%);
+  z-index: 100;
+  transform: translateY(-100%);
+  transition: transform 0.45s ease;
+  padding: 6rem 1.5rem 2rem;
 }
 
-.menu-button:hover {
-  opacity: 0.8;
+.mobile-menu .mobile-nav {
+  display: none;
+}
+
+.mobile-menu.open .mobile-nav {
+  display: block;
+}
+
+.mobile-menu.open {
+  transform: translateY(0);
+}
+
+.mobile-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav li {
+  margin-bottom: 1.75rem;
+}
+
+.mobile-nav a,
+.mobile-nav button {
+  background: none;
+  border: none;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.mobile-cta {
+  margin-top: 3rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: #f37272;
+  color: #ffffff;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+}
+
+.mobile-menu.open .mobile-cta {
+  display: block;
+}
+
+.menu-button {
+  color: #fff;font-size: 20px;
+    font-weight: 300;
+    
+}
+
+.site-header.active .menu-button {
+  color: #243544;
+}
+
+@media (width <=767px) {
+  .site-header.menu-openned {
+    height: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none;
+  }
+  
 }
 
 /* ===============================

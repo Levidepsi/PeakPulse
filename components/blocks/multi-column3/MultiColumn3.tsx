@@ -66,7 +66,7 @@ export default function MultiColumn3({ sectionId, title, multiColumns3_items }: 
                   
                 </div>
 
-                <div className="flex border-t border-solid border-[#dae0e780] pt-[16px] absolute bottom-5">
+                <div className="flex border-t border-solid border-[#dae0e780] pt-[16px] absolute bottom-5 gap-2.5">
                    {item.badge && (
                   <span className="badge h-max">{item.badge}</span>
                     )}

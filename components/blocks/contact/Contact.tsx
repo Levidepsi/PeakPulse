@@ -1,10 +1,45 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { useRef, useState } from "react";
 import "./contact-cta.css";
+import emailjs from '@emailjs/browser';
 
 export default function ContactCTA() {
+  const form = useRef<any>(null);
+    const [emailSent, setEmailSent] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  const sendEmail = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        `service_7zdxvd1`,
+        `template_p8snrrn`,
+        form.current,
+        `Irih0kFMOFDhpXxXI`
+      )
+      .then(
+        (result: any) => {
+          console.log(result);
+          setEmailSent(true);
+          setHasError(false);
+          window.location.reload()
+          
+          return result;
+        },
+        (error) => {
+          console.log(error);
+          setEmailSent(false);
+          setHasError(true);
+
+          return error;
+        }
+      );
+  };
   return (
-    <section className="contact-cta">
+    <section id="contact" className="contact-cta">
       <div className="contact-cta__container">
         {/* Heading */}
         <h2 className="contact-cta__title">
@@ -17,18 +52,21 @@ export default function ContactCTA() {
 
         {/* Form Card */}
         <div className="contact-card">
-          <form className="contact-form">
+          <form ref={form} onSubmit={sendEmail} className="contact-form">
             <div className="form-group">
               <label>Business Name</label>
               <input
+                id="name"
                 type="text"
                 placeholder="Your company name"
+                defaultValue={emailSent ? "" : ""}
               />
             </div>
 
             <div className="form-group">
               <label>Email</label>
               <input
+                id="email"
                 type="email"
                 placeholder="you@company.com"
               />
@@ -37,13 +75,14 @@ export default function ContactCTA() {
             <div className="form-group">
               <label>Message</label>
               <textarea
+                id="message"
                 placeholder="Tell us about your project..."
                 rows={4}
               />
             </div>
 
             <button type="submit" className="submit-btn">
-              Send Message
+              {emailSent ? "Email has been sent to the admin" : "Send Message"}
             </button>
           </form>
         </div>

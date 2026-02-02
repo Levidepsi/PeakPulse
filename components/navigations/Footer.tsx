@@ -1,6 +1,13 @@
 "use client"
+import { usePathname } from "next/navigation"
 import "./navigation.css"
 const Footer = () => {
+  const pathname = usePathname()
+  
+  if (pathname.includes("/admin")) {
+    return null
+  }
+  
   return (
     <footer className="site-footer">
       <div className="footer-container">

@@ -25,6 +25,17 @@ const Banner = ({
   section_size = "medium",
   removeBg,
 }: BannerProps) => {
+
+   const handleScroll = (id: string) => {
+    const el = document.getElementById(id);
+    console.log(id)
+    if (!el) return;
+
+    el.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   return (
     <section
       id={sectionId}
@@ -55,14 +66,14 @@ const Banner = ({
         {(buttonLabel || buttonLink) && (
           <div className="hero-actions fade-up delay-2">
             {buttonLink && (
-              <Link href={buttonLink} className="btn btn-primary">
+              <button onClick={() => handleScroll(buttonLink)} className="btn btn-primary cursor-pointer">
                 {buttonLabel || "Get Started"}
-              </Link>
+              </button>
             )}
 
-            <Link href="#services" className="btn btn-secondary">
+            <button onClick={() => handleScroll("services")} className="btn btn-secondary cursor-pointer">
               See Services
-            </Link>
+            </button>
           </div>
         )}
       </div>
