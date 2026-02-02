@@ -16,7 +16,7 @@ export default function ContactCTA() {
     emailjs
       .sendForm(
         `service_7zdxvd1`,
-        `template_p8snrrn`,
+        `template_yqye2qm`,
         form.current,
         `Irih0kFMOFDhpXxXI`
       )
@@ -25,8 +25,8 @@ export default function ContactCTA() {
           console.log(result);
           setEmailSent(true);
           setHasError(false);
-          window.location.reload()
-          
+          form.current.reset();
+
           return result;
         },
         (error) => {
@@ -56,7 +56,9 @@ export default function ContactCTA() {
             <div className="form-group">
               <label>Business Name</label>
               <input
-                id="name"
+                required
+                name="business_name"
+                id="business_name"
                 type="text"
                 placeholder="Your company name"
                 defaultValue={emailSent ? "" : ""}
@@ -66,7 +68,9 @@ export default function ContactCTA() {
             <div className="form-group">
               <label>Email</label>
               <input
-                id="email"
+                name="user_email"
+                required
+                id="user_email"
                 type="email"
                 placeholder="you@company.com"
               />
@@ -75,6 +79,8 @@ export default function ContactCTA() {
             <div className="form-group">
               <label>Message</label>
               <textarea
+                name="message"
+                required
                 id="message"
                 placeholder="Tell us about your project..."
                 rows={4}
