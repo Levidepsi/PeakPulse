@@ -23,9 +23,6 @@ export async function generateMetadata(): Promise<Metadata> {
     height = 630;
     width = Math.round(height * aspectRatio);
   }
-
-  console.log(data)
-
   const metaTitle = `PeakPulse`;
   const metadata = {
     title: metaTitle,
@@ -39,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: `${metaTitle}`,
       images: [
         {
-          url: data && data.meta_image && data.meta_image,
+          url: data && data.mainImage && data.mainImage,
           width: 1200,
           height: 630,
           aspectRatio: aspectRatio,
@@ -63,6 +60,8 @@ export default async function Home() {
   const { data } = await sanityFetch({
     query: query,
   });
+
+  console.log(data.mainImage)
 
   return <Homepage data={data} />;
 }

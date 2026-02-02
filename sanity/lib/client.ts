@@ -122,6 +122,7 @@ export const homeQuery = `*[_type == "home"][0]{
     _type,
     _createdAt,
     _updatedAt,
+    "mainImage": mainImage.asset->url,
     hero{
       heading,
       description,
