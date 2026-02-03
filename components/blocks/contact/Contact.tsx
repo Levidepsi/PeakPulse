@@ -4,11 +4,16 @@
 import { useRef, useState } from "react";
 import "./contact-cta.css";
 import emailjs from '@emailjs/browser';
+import AuditCalendarPage from "./BookingContact";
 
 export default function ContactCTA() {
   const form = useRef<any>(null);
     const [emailSent, setEmailSent] = useState(false);
   const [hasError, setHasError] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedTime, setSelectedTime] = useState<string>("");
+  
+  console.log(selectedDate, selectedTime)
 
   const sendEmail = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -26,7 +31,6 @@ export default function ContactCTA() {
           setEmailSent(true);
           setHasError(false);
           form.current.reset();
-
           return result;
         },
         (error) => {
@@ -52,7 +56,10 @@ export default function ContactCTA() {
 
         {/* Form Card */}
         <div className="contact-card">
-          <form ref={form} onSubmit={sendEmail} className="contact-form">
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            className="contact-form">
             <div className="form-group">
               <label>Business Name</label>
               <input
@@ -86,6 +93,22 @@ export default function ContactCTA() {
                 rows={4}
               />
             </div>
+            <input
+              type="hidden"
+              name="audit_date"
+              value={selectedDate}
+            />
+
+            <input
+              type="hidden"
+              name="audit_time"
+              value={selectedTime}
+            />
+            <AuditCalendarPage
+              onDateSelect={setSelectedDate}
+              onTimeSelect={setSelectedTime}
+              emailSent={emailSent}
+            />
 
             <button type="submit" className="submit-btn">
               {emailSent ? "Email has been sent to the admin" : "Send Message"}
