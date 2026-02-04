@@ -20,14 +20,14 @@ export default function ContactCTA() {
 
   try {
     // 1️⃣ Send email
-    // const result = await emailjs.sendForm(
-    //   "service_7zdxvd1",
-    //   "template_yqye2qm",
-    //   form.current!,
-    //   "Irih0kFMOFDhpXxXI"
-    // );
+    const result = await emailjs.sendForm(
+      "service_7zdxvd1",
+      "template_yqye2qm",
+      form.current!,
+      "Irih0kFMOFDhpXxXI"
+    );
 
-    // console.log("Email sent:", result.text);
+    console.log("Email sent:", result.text);
 
     await fetch("/api/google/calendar", {
       method: "POST",
