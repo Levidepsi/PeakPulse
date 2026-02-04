@@ -37,6 +37,14 @@ export async function POST(req: Request) {
         dateTime: `${date}T${endTime}:00`,
         timeZone: "Asia/Manila",
       },
+      extendedProperties: {
+        private: {
+          bookingType: "AUDIT",
+          bookingStatus: "CONFIRMED",
+          clientEmail: email,
+          source: "WEBSITE",
+        },
+      },
     };
 
     console.log("Event date:", event.start.dateTime);
@@ -46,7 +54,7 @@ export async function POST(req: Request) {
       requestBody: event,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true });  
   } catch (err: any) {
     console.error("Google Calendar error:", err);
     return NextResponse.json(

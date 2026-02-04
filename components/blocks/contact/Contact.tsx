@@ -20,14 +20,14 @@ export default function ContactCTA() {
 
   try {
     // 1️⃣ Send email
-    const result = await emailjs.sendForm(
-      "service_7zdxvd1",
-      "template_yqye2qm",
-      form.current!,
-      "Irih0kFMOFDhpXxXI"
-    );
+    // const result = await emailjs.sendForm(
+    //   "service_7zdxvd1",
+    //   "template_yqye2qm",
+    //   form.current!,
+    //   "Irih0kFMOFDhpXxXI"
+    // );
 
-    console.log("Email sent:", result.text);
+    // console.log("Email sent:", result.text);
 
     await fetch("/api/google/calendar", {
       method: "POST",
@@ -45,6 +45,7 @@ export default function ContactCTA() {
     setEmailSent(true);
     setHasError(false);
     form.current.reset();
+    window.location.reload();
 
   } catch (error) {
     console.error("Error:", error);
@@ -110,6 +111,7 @@ export default function ContactCTA() {
               onDateSelect={setSelectedDate}
               onTimeSelect={setSelectedTime}
               emailSent={emailSent}
+              selectedDate={selectedDate}
             />
 
             <button type="submit" className="submit-btn">

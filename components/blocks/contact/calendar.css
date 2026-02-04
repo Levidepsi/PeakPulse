@@ -142,6 +142,49 @@
   background-color: #f07a7a;
 }
 
+.slot.booked {
+  text-decoration: line-through;
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.fully-booked {
+  color: #c00;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.fully-booked-day {
+  background: #f07a7a !important;
+  color: #1f2937 !important;
+}
+
+.fully-booked-day {
+  background: #f07a7a !important;
+  color: #1f2937 !important;
+  position: relative;
+  cursor: not-allowed;
+}
+.fully-booked-day::before,
+.fully-booked-day::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 1px;
+  background: #1f2937;
+}
+
+.fully-booked-day::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.fully-booked-day::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 /* ===== Empty State ===== */
 .details>p {
   font-size: 14px;

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
 import "./calendar.css";
+import { set } from "sanity";
 
 const SLOT_DATA = [
   { label: "09:00 – 11:00", start: "09:00", end: "11:00" },
@@ -12,13 +14,15 @@ const SLOT_DATA = [
 interface Props {
   onDateSelect: (value: string) => void;
   onTimeSelect: (value: string) => void;
-  emailSent: boolean
+  emailSent: boolean;
+  selectedDate: string
 }
 
 export default function AuditCalendarPage({
   onDateSelect,
   onTimeSelect,
-  emailSent
+  emailSent,
+  selectedDate
 }: Props) {
   const today = new Date();
 
@@ -89,6 +93,82 @@ export default function AuditCalendarPage({
     setSelectedTime(slot);
     onTimeSelect(`${slot.start}-${slot.end}`);
   };
+
+  const [bookedSlots, setBookedSlots] = useState<any[]>([]);
+  const [daySlot, setDaySlot] = useState<any>(null);
+
+  const newDay = new Date(daySlot?.updated).getUTCDate()
+
+  useEffect(() => {
+    if (!selectedDay) return;
+
+    fetch("/api/google/availability", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        year: currentYear,
+        month: currentMonth,
+        day: selectedDay,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        setBookedSlots(Array.isArray(data.bookings) ? data.bookings : []);
+        setDaySlot(data.dayData);
+      })
+      .catch(() => setBookedSlots([]));
+  }, [currentMonth, currentYear, selectedDay]);
+  
+  const isSlotBooked = (slot: { start: string; end: string }) => {
+    if (!Array.isArray(bookedSlots)) return false;
+
+    return bookedSlots.some(b => {
+      if (!b?.start || !b?.end) return false;
+
+      const bookedStart = new Date(b.start);
+      const bookedEnd = new Date(b.end);
+
+      const slotStart = new Date(
+        `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(selectedDay).padStart(2, "0")}T${slot.start}:00`
+      );
+
+      const slotEnd = new Date(
+        `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(selectedDay).padStart(2, "0")}T${slot.end}:00`
+      );
+
+      return (
+        bookedStart.getTime() === slotStart.getTime() &&
+        bookedEnd.getTime() === slotEnd.getTime()
+      );
+    });
+  };
+
+  const isDayFullyBooked = () => {
+    if (!selectedDate) return false;
+
+    return SLOT_DATA.every(slot => isSlotBooked(slot));
+  };
+
+  const isToday =
+    selectedDay === today.getDate() &&
+    currentMonth === today.getMonth() &&
+    currentYear === today.getFullYear();
+  
+  const shouldDisableDay = isToday && isDayFullyBooked();
+  console.log(shouldDisableDay)
+
+  const isCalendarDayFullyBooked = (day: number) => {
+    const today = new Date();
+
+    const isThatDayToday =
+      day === today.getDate() &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear();
+
+    return isThatDayToday && isDayFullyBooked();
+  };
+
+
   return (
     <div className="Booking_Wrapper">
       <header className="book-header">Audit Availability</header>
@@ -119,14 +199,16 @@ export default function AuditCalendarPage({
               <div key={index}>
                 {day && (
                   <button
-                    type="button"
-                    className={`day ${
-                      selectedDay === day ? "active" : ""
-                    }`}
-                    onClick={() => handleDateSelect(day)}
-                  >
-                    {day}
-                  </button>
+                    disabled={isCalendarDayFullyBooked(day)}
+                  type="button"
+                  className={`day ${isCalendarDayFullyBooked(day) ? "fully-booked-day" : ""}
+                    ${selectedDay === day ? "active" : ""}
+                    ${selectedDay === day && isDayFullyBooked() ? "fully-booked-day" : ""}
+                  `}
+                  onClick={() => handleDateSelect(day)}
+                >
+                  {day}
+                </button>
                 )}
               </div>
             ))}
@@ -145,15 +227,17 @@ export default function AuditCalendarPage({
               <div className="slots">
                 {SLOT_DATA.map((slot) => (
                   <button
-                    key={slot.label}
-                    type="button"
-                    className={`slot ${
-                      selectedTime?.start === slot.start ? "active" : ""
-                    }`}
-                    onClick={() => handleTimeSelect(slot)}
-                  >
-                    {slot.label}
-                  </button>
+                  key={slot.label}
+                  type="button"
+                  disabled={isSlotBooked(slot) || isDayFullyBooked()}
+                  className={`slot
+                    ${selectedTime?.start === slot.start ? "active" : ""}
+                    ${isSlotBooked(slot) ? "booked" : ""}
+                  `}
+                  onClick={() => handleTimeSelect(slot)}
+                >
+                  {slot.label}
+                </button>
                 ))}
               </div>
             </>
