@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import "./calendar.css";
 
-const SLOT_DATA = ["09:00 – 11:00", "13:00 – 15:00", "15:30 – 17:30"];
+const SLOT_DATA = [
+  { label: "09:00 – 11:00", start: "09:00", end: "11:00" },
+  { label: "13:00 – 15:00", start: "13:00", end: "15:00" },
+  { label: "15:30 – 17:30", start: "15:30", end: "17:30" },
+];
 
 interface Props {
   onDateSelect: (value: string) => void;
@@ -21,7 +25,10 @@ export default function AuditCalendarPage({
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<{
+    start: string;
+    end: string;
+  } | null>(null);
 
   // 🔥 Always derived from currentMonth + currentYear
   const monthName = new Date(currentYear, currentMonth).toLocaleString(
@@ -64,20 +71,23 @@ export default function AuditCalendarPage({
       setCurrentMonth((m) => m + 1);
     }
   };
+    const handleDateSelect = (day: number) => {
+      setSelectedDay(day);
+      setSelectedTime(null);
 
-  const handleDateSelect = (day: number) => {
-    setSelectedDay(day);
-    setSelectedTime(null);
+      const month = String(currentMonth + 1).padStart(2, "0");
+      const dayStr = String(day).padStart(2, "0");
 
-    // ✅ Uses ACTIVE month/year
-    const formattedDate = `${monthName} ${day}, ${currentYear}`;
-    onDateSelect(formattedDate);
-    onTimeSelect("");
-  };
+      const dateString = `${currentYear}-${month}-${dayStr}`;
 
-  const handleTimeSelect = (slot: string) => {
+      onDateSelect(dateString);
+      onTimeSelect("");
+    };
+
+
+  const handleTimeSelect = (slot: { start: string; end: string }) => {
     setSelectedTime(slot);
-    onTimeSelect(slot);
+    onTimeSelect(`${slot.start}-${slot.end}`);
   };
   return (
     <div className="Booking_Wrapper">
@@ -135,14 +145,14 @@ export default function AuditCalendarPage({
               <div className="slots">
                 {SLOT_DATA.map((slot) => (
                   <button
-                    key={slot}
+                    key={slot.label}
                     type="button"
                     className={`slot ${
-                      selectedTime === slot ? "active" : ""
+                      selectedTime?.start === slot.start ? "active" : ""
                     }`}
                     onClick={() => handleTimeSelect(slot)}
                   >
-                    {slot}
+                    {slot.label}
                   </button>
                 ))}
               </div>

@@ -13,6 +13,7 @@
     "@next/font": "^14.2.15",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.22.0",
+    "googleapis": "^171.2.0",
     "next": "16.1.6",
     "next-sanity": "^11.6.12",
     "react": "19.2.3",
@@ -28,6 +29,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

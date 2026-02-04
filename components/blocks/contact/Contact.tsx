@@ -15,33 +15,44 @@ export default function ContactCTA() {
   
   console.log(selectedDate, selectedTime)
 
-  const sendEmail = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+  const sendEmail = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    emailjs
-      .sendForm(
-        `service_7zdxvd1`,
-        `template_yqye2qm`,
-        form.current,
-        `Irih0kFMOFDhpXxXI`
-      )
-      .then(
-        (result: any) => {
-          console.log(result);
-          setEmailSent(true);
-          setHasError(false);
-          form.current.reset();
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          setEmailSent(false);
-          setHasError(true);
+  try {
+    // 1️⃣ Send email
+    // const result = await emailjs.sendForm(
+    //   "service_7zdxvd1",
+    //   "template_yqye2qm",
+    //   form.current!,
+    //   "Irih0kFMOFDhpXxXI"
+    // );
 
-          return error;
-        }
-      );
-  };
+    // console.log("Email sent:", result.text);
+
+    await fetch("/api/google/calendar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        businessName: form.current.business_name.value,
+        email: form.current.user_email.value,
+        date: selectedDate,
+        startTime: selectedTime?.split("-")[0],
+        endTime: selectedTime?.split("-")[1],
+      }),
+    });
+    console.log("Calendar event created");
+    // 3️⃣ UI cleanup
+    setEmailSent(true);
+    setHasError(false);
+    form.current.reset();
+
+  } catch (error) {
+    console.error("Error:", error);
+    setEmailSent(false);
+    setHasError(true);
+  }
+};
+
   return (
     <section id="contact" className="contact-cta">
       <div className="contact-cta__container">
@@ -93,17 +104,8 @@ export default function ContactCTA() {
                 rows={4}
               />
             </div>
-            <input
-              type="hidden"
-              name="audit_date"
-              value={selectedDate}
-            />
-
-            <input
-              type="hidden"
-              name="audit_time"
-              value={selectedTime}
-            />
+            <input type="hidden" name="audit_date" value={selectedDate} />
+            <input type="hidden" name="audit_time" value={selectedTime || ""} />
             <AuditCalendarPage
               onDateSelect={setSelectedDate}
               onTimeSelect={setSelectedTime}
