@@ -26,21 +26,30 @@ export async function POST(req: Request) {
       auth: oauth2Client,
     });
 
-    const normalizeTime = (time: string) =>
-  time.padStart(5, "0"); // "2:00" → "02:00"
+  //   const normalizeTime = (time: string) =>
+  // time.padStart(5, "0"); // "2:00" → "02:00"
 
+  //   const startDateTime = new Date(
+  //     `${date}T${normalizeTime(startTime)}:00`
+  //   );
+
+  //   const endDateTime = new Date(
+  //     `${date}T${normalizeTime(endTime)}:00`
+  //   );
+
+  //   // 🔥 Overnight handling
+  //   if (endDateTime <= startDateTime) {
+  //     endDateTime.setDate(endDateTime.getDate() + 1);
+    //   }
+    
     const startDateTime = new Date(
-      `${date}T${normalizeTime(startTime)}:00`
+      `${date}T${startTime}:00+08:00`
     );
 
     const endDateTime = new Date(
-      `${date}T${normalizeTime(endTime)}:00`
+      `${date}T${endTime}:00+08:00`
     );
 
-    // 🔥 Overnight handling
-    if (endDateTime <= startDateTime) {
-      endDateTime.setDate(endDateTime.getDate() + 1);
-    }
 
     const event = {
       summary: `Audit Booking - ${businessName}`,
