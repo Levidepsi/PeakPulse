@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import "./calendar.css";
 import { set } from "sanity";
 import { SLOT_DATA } from "./slots";
+import {motion} from "motion/react"
 
 
 interface Props {
@@ -205,16 +206,16 @@ export default function AuditCalendarPage({
   // const shouldDisableDay = isToday && isDayFullyBooked();
   // console.log(shouldDisableDay)
 
-  const isCalendarDayFullyBooked = (day: number) => {
-    const today = new Date();
+  // const isCalendarDayFullyBooked = (day: number) => {
+  //   const today = new Date();
 
-    const isThatDayToday =
-      day === today.getDate() &&
-      currentMonth === today.getMonth() &&
-      currentYear === today.getFullYear();
+  //   const isThatDayToday =
+  //     day === today.getDate() &&
+  //     currentMonth === today.getMonth() &&
+  //     currentYear === today.getFullYear();
 
-    return isThatDayToday && isDayFullyBooked();
-  };
+  //   return isThatDayToday && isDayFullyBooked();
+  // };
 
   // Disable past dates (if today is 5, then 1,2,3,4 are disabled)
   const isPastDay = (day: number) => {
@@ -252,7 +253,12 @@ export default function AuditCalendarPage({
 
       <div className="layout">
         {/* Calendar */}
-        <div className="calendar">
+        <motion.div
+          initial={{y: 40, opacity: 0}}
+          whileInView={{y: 0, opacity: 1}}
+          transition={{duration: 0.7, delay: 1}}
+          viewport={{once: true}}
+          className="calendar">
           <div className="calendar-header">
             <button type="button" onClick={goPrevMonth}>
               &lt;
@@ -293,10 +299,15 @@ export default function AuditCalendarPage({
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Slots */}
-        <div className="details">
+        <motion.div
+          initial={{y: 40, opacity: 0}}
+          whileInView={{y: 0, opacity: 1}}
+          transition={{duration: 0.7, delay: 1.5}}
+          viewport={{once: true}}
+          className="details">
           {selectedDay ? (
             <>
               <h3>
@@ -331,7 +342,7 @@ export default function AuditCalendarPage({
           ) : (
             <p>Select a date to view available slots</p>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

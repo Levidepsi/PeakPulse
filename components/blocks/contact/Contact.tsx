@@ -10,6 +10,7 @@ export default function ContactCTA({one_booking_a_day}: {one_booking_a_day: bool
   const form = useRef<any>(null);
     const [emailSent, setEmailSent] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
   
@@ -17,7 +18,8 @@ export default function ContactCTA({one_booking_a_day}: {one_booking_a_day: bool
 
   const sendEmail = async (e: React.FormEvent) => {
   e.preventDefault();
-
+  setLoading(true)
+  
   try {
     // 1️⃣ Send email
     // const result = await emailjs.sendForm(
@@ -45,6 +47,7 @@ export default function ContactCTA({one_booking_a_day}: {one_booking_a_day: bool
     setEmailSent(true);
     setHasError(false);
     form.current.reset();
+    setLoading(false)
     setTimeout(() => {
       window.location.reload();
     }, 5000);
@@ -120,7 +123,7 @@ export default function ContactCTA({one_booking_a_day}: {one_booking_a_day: bool
             />
 
             <button type="submit" className="submit-btn">
-              {emailSent ? "Email has been sent to the admin and to your email address!" : "Book Now"}
+              {loading ? "Loading..." : emailSent ? "Email has been sent to the admin and to your email address!" : "Book Now"}
             </button>
           </form>
         </div>
