@@ -249,7 +249,7 @@ export default function AuditCalendarPage({
 
   return (
     <div className="Booking_Wrapper">
-      <header className="book-header">{one_booking_a_day ? "Only One Booking Per Day Allowed" : "Booking Availability"}</header>
+      <header className="book-header">{one_booking_a_day ? "Only One Booking Per Day Allowed" : "Executive Call Availability"}</header>
 
       <div className="layout">
         {/* Calendar */}
