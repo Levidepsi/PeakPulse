@@ -51,7 +51,10 @@ export async function POST(req: Request) {
       },
 
       // ✅ CLIENT RECEIVES INVITE
-      attendees: [{ email }],
+      attendees: [
+        { email },
+        { email: "fdr.peakpulse@gmail.com" }
+      ],
 
       // ✅ GOOGLE MEET LINK
       conferenceData: {
