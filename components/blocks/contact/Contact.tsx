@@ -6,7 +6,7 @@ import "./contact-cta.css";
 import emailjs from '@emailjs/browser';
 import AuditCalendarPage from "./BookingContact";
 
-export default function ContactCTA() {
+export default function ContactCTA({one_booking_a_day}: {one_booking_a_day: boolean}) {
   const form = useRef<any>(null);
     const [emailSent, setEmailSent] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -54,7 +54,9 @@ export default function ContactCTA() {
     setEmailSent(false);
     setHasError(true);
   }
-};
+  };
+  
+  console.log(one_booking_a_day)
 
   return (
     <section id="contact" className="contact-cta">
@@ -114,10 +116,11 @@ export default function ContactCTA() {
               onTimeSelect={setSelectedTime}
               emailSent={emailSent}
               selectedDate={selectedDate}
+              one_booking_a_day={one_booking_a_day}
             />
 
             <button type="submit" className="submit-btn">
-              {emailSent ? "Email has been sent to the admin and to your email address!" : "Send Message"}
+              {emailSent ? "Email has been sent to the admin and to your email address!" : "Book Now"}
             </button>
           </form>
         </div>

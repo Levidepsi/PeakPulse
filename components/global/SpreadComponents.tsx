@@ -77,6 +77,7 @@ export default function SpreadComponents({components}: {components: COMPONENTS[]
            contact: (
             <ContactCTA
               key={component._key}
+              one_booking_a_day={component.one_booking_a_day}
             />
           ),
         };

@@ -142,7 +142,8 @@
   background-color: #f07a7a;
 }
 
-.slot.booked {
+.slot.booked,
+.slot.slot-passed {
   text-decoration: line-through;
   background: #f3f4f6;
   color: #9ca3af;

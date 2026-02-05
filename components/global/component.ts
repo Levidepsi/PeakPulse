@@ -117,6 +117,9 @@ export interface COMPONENTS {
   padding_top_mobile?: number;
   padding_bottom_mobile?: number;
 
+  // booleans
+  one_booking_a_day: boolean
+
   // stats 
   stats: Stats[]
 

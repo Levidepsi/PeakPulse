@@ -43,6 +43,13 @@ export default defineType({
       description: "Optional heading for this section",
       group: "content"
     }),
+    defineField({
+      name: "one_booking_a_day",
+      title: "One Booking Per Day",
+      type: "boolean",
+      description: "Optional text to indicate one booking per day",
+      group: "content"
+    }),
   ],
   preview: {
     select: {
