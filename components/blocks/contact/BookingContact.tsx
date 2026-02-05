@@ -4,12 +4,8 @@
 import { useEffect, useState } from "react";
 import "./calendar.css";
 import { set } from "sanity";
+import { SLOT_DATA } from "./slots";
 
-const SLOT_DATA = [
-  { label: "09:00 – 11:00", start: "09:00", end: "11:00" },
-  { label: "13:00 – 15:00", start: "13:00", end: "15:00" },
-  { label: "15:30 – 17:30", start: "15:30", end: "17:30" },
-];
 
 interface Props {
   onDateSelect: (value: string) => void;
@@ -34,7 +30,7 @@ export default function AuditCalendarPage({
     end: string;
   } | null>(null);
 
-  // 🔥 Always derived from currentMonth + currentYear
+  //  Always derived from currentMonth + currentYear
   const monthName = new Date(currentYear, currentMonth).toLocaleString(
     "default",
     { month: "long" }
@@ -43,10 +39,14 @@ export default function AuditCalendarPage({
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
 
+  // array of days with leading nulls for alignment
+
   const daysArray = Array.from(
     { length: firstDayIndex + daysInMonth },
     (_, i) => (i < firstDayIndex ? null : i - firstDayIndex + 1)
   );
+
+  // month navigation
 
   const goPrevMonth = () => {
     setSelectedDay(null);
@@ -62,6 +62,8 @@ export default function AuditCalendarPage({
     }
   };
 
+  // next month handler
+
   const goNextMonth = () => {
     setSelectedDay(null);
     setSelectedTime(null);
@@ -75,6 +77,8 @@ export default function AuditCalendarPage({
       setCurrentMonth((m) => m + 1);
     }
   };
+
+  // date handler
     const handleDateSelect = (day: number) => {
       setSelectedDay(day);
       setSelectedTime(null);
@@ -86,9 +90,9 @@ export default function AuditCalendarPage({
 
       onDateSelect(dateString);
       onTimeSelect("");
-    };
-
-
+  };
+  
+  // time handler
   const handleTimeSelect = (slot: { start: string; end: string }) => {
     setSelectedTime(slot);
     onTimeSelect(`${slot.start}-${slot.end}`);
@@ -97,7 +101,8 @@ export default function AuditCalendarPage({
   const [bookedSlots, setBookedSlots] = useState<any[]>([]);
   const [daySlot, setDaySlot] = useState<any>(null);
 
-  const newDay = new Date(daySlot?.updated).getUTCDate()
+  // fetch booked slots when selectedDay changes
+
 
   useEffect(() => {
     if (!selectedDay) return;
@@ -118,6 +123,8 @@ export default function AuditCalendarPage({
       })
       .catch(() => setBookedSlots([]));
   }, [currentMonth, currentYear, selectedDay]);
+
+  // slot handler
   
   const isSlotBooked = (slot: { start: string; end: string }) => {
     if (!Array.isArray(bookedSlots)) return false;
@@ -143,19 +150,21 @@ export default function AuditCalendarPage({
     });
   };
 
+  // day handler
+
   const isDayFullyBooked = () => {
     if (!selectedDate) return false;
 
     return SLOT_DATA.every(slot => isSlotBooked(slot));
   };
 
-  const isToday =
-    selectedDay === today.getDate() &&
-    currentMonth === today.getMonth() &&
-    currentYear === today.getFullYear();
+  // const isToday =
+  //   selectedDay === today.getDate() &&
+  //   currentMonth === today.getMonth() &&
+  //   currentYear === today.getFullYear();
   
-  const shouldDisableDay = isToday && isDayFullyBooked();
-  console.log(shouldDisableDay)
+  // const shouldDisableDay = isToday && isDayFullyBooked();
+  // console.log(shouldDisableDay)
 
   const isCalendarDayFullyBooked = (day: number) => {
     const today = new Date();
@@ -166,6 +175,22 @@ export default function AuditCalendarPage({
       currentYear === today.getFullYear();
 
     return isThatDayToday && isDayFullyBooked();
+  };
+
+  // Disable past dates (if today is 5, then 1,2,3,4 are disabled)
+  const isPastDay = (day: number) => {
+    const today = new Date();
+
+    // If viewing a past month/year, all days are past
+    if (currentYear < today.getFullYear()) return true;
+    if (currentYear === today.getFullYear() && currentMonth < today.getMonth()) return true;
+
+    // If viewing current month/year, check if day is before today
+    if (currentYear === today.getFullYear() && currentMonth === today.getMonth()) {
+      return day < today.getDate();
+    }
+
+    return false;
   };
 
 
@@ -199,12 +224,12 @@ export default function AuditCalendarPage({
               <div key={index}>
                 {day && (
                   <button
-                    disabled={isCalendarDayFullyBooked(day)}
-                  type="button"
-                  className={`day ${isCalendarDayFullyBooked(day) ? "fully-booked-day" : ""}
-                    ${selectedDay === day ? "active" : ""}
-                    ${selectedDay === day && isDayFullyBooked() ? "fully-booked-day" : ""}
-                  `}
+                    disabled={isCalendarDayFullyBooked(day) || isPastDay(day)}
+                    type="button"
+                    className={`day ${(isCalendarDayFullyBooked(day) || isPastDay(day)) ? "fully-booked-day" : ""}
+                      ${selectedDay === day ? "active" : ""}
+                      ${selectedDay === day && isDayFullyBooked() ? "fully-booked-day" : ""}
+                    `}
                   onClick={() => handleDateSelect(day)}
                 >
                   {day}

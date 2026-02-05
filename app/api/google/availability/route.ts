@@ -27,12 +27,24 @@ export async function POST(req: Request) {
 
   const events = res.data.items || [];
 
+  const now = new Date();
+
   const bookings = events
-    .filter(event => event.start?.dateTime && event.end?.dateTime)
+    .filter(event => {
+      if (!event.start?.dateTime || !event.end?.dateTime) return false;
+
+      const status =
+        event.extendedProperties?.private?.bookingStatus;
+
+      if (status !== "CONFIRMED") return false;
+
+      return new Date(event.end.dateTime) > now;
+    })
     .map(event => ({
       start: event.start!.dateTime!,
       end: event.end!.dateTime!,
     }));
+
 
   return NextResponse.json({ bookings, dayData });
 }

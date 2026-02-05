@@ -92,9 +92,9 @@
 }
 
 .day.active {
-  background: #4f46e5;
+  background: linear-gradient(to right, #f37272, #57d1c7);
   color: #ffffff;
-  border-color: #4f46e5;
+  border-color: linear-gradient(to right, #f37272, #57d1c7);
 }
 
 /* Empty cells */

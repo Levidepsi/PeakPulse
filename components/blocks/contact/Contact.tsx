@@ -45,7 +45,9 @@ export default function ContactCTA() {
     setEmailSent(true);
     setHasError(false);
     form.current.reset();
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
 
   } catch (error) {
     console.error("Error:", error);
@@ -115,7 +117,7 @@ export default function ContactCTA() {
             />
 
             <button type="submit" className="submit-btn">
-              {emailSent ? "Email has been sent to the admin" : "Send Message"}
+              {emailSent ? "Email has been sent to the admin and to your email address!" : "Send Message"}
             </button>
           </form>
         </div>
