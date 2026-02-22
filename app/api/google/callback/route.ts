@@ -1,6 +1,10 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
+// node scripts/getGoogleAuthUrl.ts
+// npm install -D tsx
+// npx tsx scripts/getGoogleAuthUrl.ts
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
