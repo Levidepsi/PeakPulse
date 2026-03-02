@@ -87,7 +87,7 @@ const Header = ({ navigation }: { navigation: HeaderValues }) => {
         <ul className="nav-links">
           {navigation.header_menu?.map((item, index) => {
             // 1️⃣ Section scroll
-            if (item.linkId) {
+            if (item.linkId && !item.page) {
               return (
                 <li key={index}>
                   <button

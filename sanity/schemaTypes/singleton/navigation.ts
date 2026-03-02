@@ -69,19 +69,19 @@ defineField({
           title: "Title",
           type: "string",
         },
-        // {
-        //   name: "page",
-        //   title: "Internal Page",
-        //   type: "object",
-        //   fields: [
-        //     {
-        //       title: "slug",
-        //       name: "slug",
-        //       type: "reference",
-        //       to: [{ type: "page" }, { type: "home" }],
-        //     },
-        //   ],
-        // },
+        {
+          name: "page",
+          title: "Internal Page",
+          type: "object",
+          fields: [
+            {
+              title: "slug",
+              name: "slug",
+              type: "reference",
+              to: [{ type: "page" }, { type: "home" }],
+            },
+          ],
+        },
         {
           name: "linkId",
           type: "string",

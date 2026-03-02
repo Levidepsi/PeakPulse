@@ -23,9 +23,9 @@ export const structure: StructureResolver = (S, context) =>
           )
       ),
 
-      // S.documentTypeListItem('page').title('Pages'),
+      S.documentTypeListItem('page').title('Pages'),
 
-      S.divider(),
+      // S.divider(),
       // orderableDocumentListDeskItem({
       //   type: 'news',
       //   title: 'News',

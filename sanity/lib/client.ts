@@ -184,3 +184,107 @@ export const homeQuery = `*[_type == "home"][0]{
     }
   }
 `;
+
+export const PAGE_QUERY = `*[_type == "page" && slug.current == $slug][0]{
+    title,
+    "slug": slug.current,
+    _id,
+    _rev,
+    _type,
+    _createdAt,
+    _updatedAt,
+    "mainImage": mainImage.asset->url,
+    hide_title,
+    hero{
+      heading,
+      description,
+      icons[] {
+      "image":image.asset->url,
+      link
+      },
+      buttonLabel,
+      buttonLink,
+      featured_Image[] {
+      "image":image.asset->url,
+      position_type
+      }
+    },
+    components[]{
+      ...,
+      "image_mobile":image_mobile.asset->url,
+      "image_desktop":image_desktop.asset->url,
+      "image_background":image_background.asset->url,
+      "image_background_mobile":image_background_mobile.asset->url,
+      "logo_title":logo_title.asset->url,
+      image_caption,
+      increase_spacing_content,
+      "logo":logo.asset->url,
+      layout,
+      "image": image.asset->url,
+      images[] {
+        "image": asset->url
+      },
+      columns[] {
+        title,
+        description,
+        centerTitles,
+        link,
+        "svg": svg.asset->url,
+        iconBgColor,
+        linkId
+      },
+        stats[] {
+          value,
+          numericValue,
+          suffix,
+          label
+        },
+      multiCol_items[] {
+        title,
+        description,
+        badge,
+        featured
+      },
+        multiColumns3_items[]{
+      name,
+      position,
+      description,
+      badge,
+      rating,
+      featured
+    },
+    }
+  }
+`;
+
+export const ALLPAGE_QUERY = `*[_type == "page"]{
+  title,
+  "slug": slug.current,
+  _type,
+  "image": image.asset->url,
+  meta_description,
+  background_color,
+  "meta_image": meta_image.asset->url,
+  components[]{
+    ...,
+    "image_mobile":image_mobile.asset->url,
+    "image_desktop":image_desktop.asset->url,
+    "logo_title":logo_title.asset->url,
+    images[] {
+      "image": image.asset->url
+    },
+    title,
+    description,
+    button_label,
+    button_link,
+    features[]{
+      title,
+      description,
+      icon{
+        asset->{
+          url,
+        }
+      }
+    },
+  }
+}`;

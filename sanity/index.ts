@@ -8,6 +8,7 @@ import statsSection from './blocks/stats-section'
 import multiColumn2 from './blocks/multi-column2'
 import multiColumn3 from './blocks/multi-column3'
 import contact from './blocks/contact'
+import page from './schemaTypes/multiple/page'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -15,6 +16,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     homeType,
     blockContentType,
     navigation,
+    page,
     // blocks
     banner,
     multiColumn,
