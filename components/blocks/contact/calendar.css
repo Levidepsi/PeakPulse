@@ -1,207 +1,223 @@
+/* ── Booking wrapper ── */
 .Booking_Wrapper {
-  font-family: Inter, Arial, sans-serif;
-  padding: 32px 0;
+  font-family: 'DM Sans', Inter, system-ui, sans-serif;
+  padding: 2rem 0;
 }
 
-/* ===== Header ===== */
+/* ── Header ── */
 .book-header {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 24px;
-  color: #1f2937;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #F1F5F9;
+  font-family: 'Syne', system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
-/* ===== Layout ===== */
+/* ── Layout ── */
 .layout {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
-/* ===== Cards ===== */
+/* ── Cards ── */
 .calendar,
 .details {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px 24px;
-  box-shadow: 0 10px 25px #00000052;
+  background: #131B2A;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
 }
 
-/* ===== Calendar Header ===== */
+/* ── Calendar header ── */
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .calendar-header h2 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #111827;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #F1F5F9;
+  font-family: 'Syne', system-ui, sans-serif;
 }
 
 .calendar-header button {
-  background: #f1f5f9;
-  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
+  color: #8B9EC0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .calendar-header button:hover {
-  background: #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
+  color: #F1F5F9;
 }
 
-/* ===== Weekdays ===== */
+/* ── Weekdays ── */
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  font-size: 13px;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
-  margin-bottom: 8px;
+  color: #546280;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* ===== Calendar Grid ===== */
+/* ── Day grid ── */
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+  gap: 5px;
 }
 
 .day {
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.8rem;
   font-weight: 500;
-  color: #111827;
+  color: #8B9EC0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .day:hover {
-  background: #f1f5ff;
-  border-color: #c7d2fe;
+  background: rgba(255, 92, 92, 0.1);
+  border-color: rgba(255, 92, 92, 0.3);
+  color: #F1F5F9;
 }
 
 .day.active {
-  background: linear-gradient(to right, #f37272, #57d1c7);
+  background: linear-gradient(135deg, #FF5C5C, #00D4AA);
   color: #ffffff;
-  border-color: linear-gradient(to right, #f37272, #57d1c7);
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(255, 92, 92, 0.4);
 }
 
-/* Empty cells */
-.grid div {
-  min-height: 44px;
-}
+.grid div { min-height: 40px; }
 
-/* ===== Details Panel ===== */
+/* ── Details panel ── */
 .details h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: #111827;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: #F1F5F9;
+  font-family: 'Syne', system-ui, sans-serif;
 }
 
 .details p {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: #8B9EC0;
+  margin-bottom: 1rem;
 }
 
-/* ===== Slots ===== */
+/* ── Time slots ── */
 .slots {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .slot {
-  padding: 14px 16px;
+  padding: 0.75rem 1rem;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: #CBD5E1;
+  cursor: pointer;
+  transition: all 0.22s ease;
 }
 
-/* Read-only style */
-.slot {
-  cursor: pointer;
+.slot:hover {
+  background: rgba(255, 92, 92, 0.08);
+  border-color: rgba(255, 92, 92, 0.25);
+  color: #F1F5F9;
 }
 
 .slot.active {
-  background-color: #f07a7a;
+  background: rgba(255, 92, 92, 0.15);
+  border-color: rgba(255, 92, 92, 0.4);
+  color: #FF7A7A;
+  font-weight: 600;
 }
 
 .slot.booked,
 .slot.slot-passed {
   text-decoration: line-through;
-  background: #f3f4f6;
-  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.02);
+  color: #3A4A5E;
+  border-color: rgba(255, 255, 255, 0.04);
   cursor: not-allowed;
 }
 
 .fully-booked {
-  color: #c00;
+  color: #FF5C5C;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
 }
 
 .fully-booked-day {
-  background: #f07a7a !important;
-  color: #1f2937 !important;
-}
-
-.fully-booked-day {
-  background: #f07a7a !important;
-  color: #1f2937 !important;
+  background: rgba(255, 92, 92, 0.2) !important;
+  color: #F1F5F9 !important;
   position: relative;
   cursor: not-allowed;
 }
+
 .fully-booked-day::before,
 .fully-booked-day::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 120%;
-  height: 1px;
-  background: #1f2937;
+  width: 115%;
+  height: 1.5px;
+  background: rgba(255, 92, 92, 0.5);
 }
 
-.fully-booked-day::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
+.fully-booked-day::before  { transform: translate(-50%, -50%) rotate(45deg); }
+.fully-booked-day::after   { transform: translate(-50%, -50%) rotate(-45deg); }
 
-.fully-booked-day::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* ===== Empty State ===== */
-.details>p {
-  font-size: 14px;
-  color: #9ca3af;
+/* ── Empty state ── */
+.details > p {
+  font-size: 0.85rem;
+  color: #546280;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 2.5rem;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 900px) {
+/* ── Responsive ── */
+@media (min-width: 900px) {
   .layout {
-    grid-template-columns: 1fr;
+    flex-direction: row;
   }
 
+  .calendar { flex: 1; }
+  .details  { flex: 0 0 280px; }
+}
+
+@media (max-width: 900px) {
   .calendar,
-  .details {
-    padding: 16px;
-  }
+  .details { padding: 1rem; }
 }
